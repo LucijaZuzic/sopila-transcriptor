@@ -7,6 +7,9 @@ from pydub import AudioSegment
 from settings import NUMBER_OF_CORES
 from os import listdir
 
+# Set the path to the ffmpeg binary
+os.environ["PATH"] += os.pathsep + os.path.join("C", "ffmpeg", "bin")
+
 # pass number of ms in a timeframe (10, 20, 25, 50)
 if not len(sys.argv) > 1:
     step = 10

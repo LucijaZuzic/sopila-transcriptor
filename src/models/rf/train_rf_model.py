@@ -74,6 +74,8 @@ rnd_clf.fit(X=x_train, y=y_train)
 print('After:')
 print(datetime.datetime.now())
 
+if not os.path.isdir(os.path.join(MODEL_DIR, ML_MODEL)):
+    os.makedirs(os.path.join(MODEL_DIR, ML_MODEL))
 if save_model:
     dump(
         rnd_clf,

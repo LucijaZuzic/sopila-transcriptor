@@ -76,12 +76,22 @@ target/
 .ipynb_checkpoints/
 
 # exclude data from source control by default
-data/*
+data/interim/*
+data/processed/*
+data/raw/*
 models/*
-secrets.json
 
 # exclude lilypond files
 *.ly
 
 # Mac OS-specific storage files
 .DS_Store
+
+# lilypond
+lilypond/*
+
+# ffmpeg
+ffmpeg/*
+
+# venv
+venv*/*

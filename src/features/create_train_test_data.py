@@ -41,6 +41,9 @@ x_train, x_test, y_train, y_test = train_test_split(
     random_state=42
 )
 
+if not os.path.isdir(os.path.join(PROCESSED_DATA_DIR, model)):
+    os.makedirs(os.path.join(PROCESSED_DATA_DIR, model))
+
 processed_data_file = h5py.File(
     os.path.join(PROCESSED_DATA_DIR, model, 'processed_data.hdf5'),
     'w'

@@ -7,20 +7,29 @@ from keras_metrics import precision, recall
 sys.path.insert(1, os.path.join(sys.path[0], '..', '..', '..'))
 sys.path.insert(1, os.path.join(sys.path[0], '..', '..'))
 
-from settings import MODEL_DIR, USE_GPU
+from settings import MODEL_DIR, USE_GPU, NUMBER_OF_GPUS
 from model import get_model
 from features.helpers.data_helpers import plot_cnn_model_statistics, \
     get_train_data, write_cnn_model_statistics, string_to_list
 
 if USE_GPU:
-    from keras.utils import multi_gpu_model
-    # use if you are running on a PC with many GPU-s
-    # needs to be at the beginning of the file
-    os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-    # the GPU id to use, usually either "0" or "1"
-    os.environ["CUDA_VISIBLE_DEVICES"] = "0,1,2"
-    # just disables the warning, doesn't enable AVX/FMA
-    os.environ['TF_CPP_MIN_LOG_LEVEL'] = "2"
+    if NUMBER_OF_GPUS > 1:
+        from keras.utils import multi_gpu_model
+        # use if you are running on a PC with many GPU-s
+        # needs to be at the beginning of the file
+        os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+        # the GPU id to use, usually either "0" or "1"
+        os.environ["CUDA_VISIBLE_DEVICES"] = "0,1,2"
+        # just disables the warning, doesn't enable AVX/FMA
+        os.environ['TF_CPP_MIN_LOG_LEVEL'] = "2"
+    else:
+        # use if you are running on a PC with many GPU-s
+        # needs to be at the beginning of the file
+        os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+        # the GPU id to use, usually either "0" or "1"
+        os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+        # just disables the warning, doesn't enable AVX/FMA
+        os.environ['TF_CPP_MIN_LOG_LEVEL'] = "2"
 
 
 # -------- required arguments --------
@@ -83,7 +92,8 @@ model = get_model(
 )
 
 if USE_GPU:
-    model = multi_gpu_model(model, gpus=[0, 1, 2])
+    if NUMBER_OF_GPUS > 1:
+        model = multi_gpu_model(model, gpus=[0, 1, 2])
 
 model.compile(
     loss=keras.losses.categorical_crossentropy,
@@ -124,6 +134,8 @@ for i in range(len(parameters)):
     name += '_' + str(parameters[i])
 
 
+if not os.path.isdir(os.path.join(MODEL_DIR, ML_MODEL)):
+    os.makedirs(os.path.join(MODEL_DIR, ML_MODEL))
 model_path = os.path.join(MODEL_DIR, ML_MODEL, 'model_' + name)
 with open(model_path + '.json','w') as json_file:
     json_file.write(model_json)

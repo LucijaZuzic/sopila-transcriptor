@@ -12,6 +12,9 @@ from settings import ML_MODELS, RAW_DATA_DIR, CUT_DIR, \
 
 for i, model in enumerate(ML_MODELS):
     print("Processing %d/%d\n" % (i + 1, len(ML_MODELS)))
+    
+    if model['voice_type'] == 'poly':
+        continue
 
     print("Cutting recordings %d/%d\n" % (i + 1, len(ML_MODELS)))
     p_cut = subprocess.check_call(

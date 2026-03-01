@@ -6,6 +6,9 @@ from pydub import AudioSegment
 from settings import NUMBER_OF_CORES
 from os import listdir
 
+# Set the path to the ffmpeg binary
+os.environ["PATH"] += os.pathsep + os.path.join("C", "ffmpeg", "bin")
+
 if not sys.argv[1]:
     print('Enter path of cut dir')
     sys.exit()

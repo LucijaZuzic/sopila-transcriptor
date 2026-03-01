@@ -12,6 +12,9 @@ from pydub import AudioSegment
 from os import listdir
 from settings import NUMBER_OF_CORES
 
+# Set the path to the ffmpeg binary
+os.environ["PATH"] += os.pathsep + os.path.join("C", "ffmpeg", "bin")
+
 if not sys.argv[1]:
     print('Enter model name defined in settings.py')
     sys.exit()

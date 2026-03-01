@@ -100,6 +100,7 @@ def get_secret(setting, secrets=secrets):
 
 NUMBER_OF_CORES = get_secret("NUMBER_OF_CORES")
 USE_GPU = get_secret("USE_GPU")
+NUMBER_OF_GPUS = get_secret("NUMBER_OF_GPUS")
 
 #  ---------------- sheet_generator settings ----------------
 ABJAD_TONES = {

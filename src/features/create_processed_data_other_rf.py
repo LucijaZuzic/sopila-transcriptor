@@ -13,6 +13,11 @@ from settings import ML_MODELS, RAW_DATA_DIR, CUT_DIR, \
 for i, model in enumerate(ML_MODELS):
     print("Processing %d/%d\n" % (i + 1, len(ML_MODELS)))
 
+    if model['model_type'] != 'rf':
+        continue
+    if model['name'] == 'poly_rf':
+        continue
+    
     print("Cutting recordings %d/%d\n" % (i + 1, len(ML_MODELS)))
     p_cut = subprocess.check_call(
         ['python', 'cut_original_recordings.py', '10',

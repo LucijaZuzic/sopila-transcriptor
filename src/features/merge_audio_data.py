@@ -4,6 +4,9 @@ from helpers.file_helpers import create_directory, clear_dir
 from pydub import AudioSegment
 from os import listdir
 
+# Set the path to the ffmpeg binary
+os.environ["PATH"] += os.pathsep + os.path.join("C", "ffmpeg", "bin")
+
 DATA_SOURCE = str(sys.argv[1])
 
 

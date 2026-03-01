@@ -1,4 +1,4 @@
-Validation_accuracy 0.9982324348210341
-Validation_precision 0.9982324348210341
-Validation_recall 0.9982324348210341
-Validation_F1 0.9982324348210341
+Validation_accuracy 0.9968884633796075
+Validation_precision 0.9968884633796075
+Validation_recall 0.9968884633796075
+Validation_F1 0.9968884633796075
